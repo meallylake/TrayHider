@@ -1,0 +1,1 @@
+portable mode: data lives in .\data next to the exe. Delete this file to use %APPDATA%\TrayHider instead.

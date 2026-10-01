@@ -1,0 +1,40 @@
+﻿===== manager window smoke test =====
+PASS  resident process is running
+       resident pid 7252, manager hwnd 2231096
+PASS  manager window is visible
+       child controls: 10
+         SysHeader32|
+         WindowsForms10.BUTTON.app.0.34f5582_r6_ad1|把当前前台窗口收进来
+         WindowsForms10.BUTTON.app.0.34f5582_r6_ad1|放出来
+         WindowsForms10.BUTTON.app.0.34f5582_r6_ad1|恢复全部
+         WindowsForms10.BUTTON.app.0.34f5582_r6_ad1|收进托盘
+         WindowsForms10.BUTTON.app.0.34f5582_r6_ad1|刷新
+         WindowsForms10.STATIC.app.0.34f5582_r6_ad1|「显示中」的行是此刻真实存在的窗口，选中后点「收进托盘」它就消失了（任务栏也一起消失）；「已隐藏」的行来自托盘，选中后点「放出来」即可恢复。
+双击一行可以来回切换。全局快捷键 Ctrl+Alt+H 也能把当前前台窗口直接收进托盘。
+         WindowsForms10.SysListView32.app.0.34f5582_r6_ad1|
+         WindowsForms10.SysTabControl32.app.0.34f5582_r6_ad1|
+         WindowsForms10.Window.8.app.0.34f5582_r6_ad1|窗口
+PASS  tab control present (1)
+PASS  window list present (1)
+PASS  list column headers present (1)
+PASS  tab-1 action buttons present (5)
+PASS  located the tab control handle
+       swept the tab strip: controls 10 -> 34, listviews 2, buttons 17
+PASS  clicking the tab strip built the other tab pages (controls 10 -> 34)
+PASS  both list views exist after visiting all tabs (2)
+PASS  every button exists after visiting all tabs (17)
+PASS  resident still alive after opening UI (no crash)
+PASS  no "failed to open manager window" in log
+PASS  no unhandled exception logged
+
+===== closing the manager window should just hide it (tray keeps running) =====
+PASS  after WM_CLOSE the tray process is still alive
+PASS  manager window is now hidden
+
+===== quit =====
+PASS  resident exited on --quit
+
+===== log tail =====
+[2026-09-23 13:36:22] ===== TrayHider 启动：数据目录 H:\ds-road\tray-hider\tests\data，规则 0 条 =====
+[2026-09-23 13:36:32] 退出 TrayHider，恢复 0 个窗口
+

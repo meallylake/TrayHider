@@ -1,0 +1,66 @@
+﻿TrayHider.exe  : 51712 bytes
+Target.exe     : True
+data dir       : H:\ds-road\tray-hider\tests\data
+
+===== 阶段 1：对照实验 —— 直接启动 Target.exe 窗口可见 =====
+PASS  Target.exe 普通启动时窗口可见（对照组成立）
+
+===== 阶段 2：启动 TrayHider 常驻（托盘） =====
+PASS  TrayHider 常驻进程已运行
+PASS  TrayHider 启动没有带出任何新窗口（控制台/管理窗口都没有）：新增 0 个
+       resident pid: 5444
+
+===== 阶段 3：把正在运行的窗口收进托盘 / 再放出来 =====
+PASS  收之前：窗口可见
+PASS  --hide 之后：窗口从可见窗口列表消失
+PASS  进程仍然活着（只是藏起来，没被杀掉）
+PASS  --restore-all 之后：窗口回来了
+
+===== 阶段 4：--list 列出可见窗口 =====
+PASS  --list 输出了当前可见窗口（含测试窗口）
+
+===== 阶段 5：启动到托盘（启动瞬间就不出现在桌面上） =====
+PASS  程序已经被启动起来了
+PASS  启动出来的窗口从未出现在可见窗口列表里
+PASS  该进程确实没有可见窗口（不是启动失败）
+PASS  恢复后：这个窗口也能被放出来
+
+===== 阶段 6：全局快捷键 Ctrl+Alt+H =====
+       ForceForeground: True
+       前台窗口: 854848|18828|TrayHiderTestTarget   测试窗口 pid: 18828
+PASS  Ctrl+Alt+H 把前台窗口收进了托盘
+PASS  再恢复：正常
+PASS  两个全局快捷键都注册成功了
+
+===== 阶段 7：进程被强杀后，下次启动自动把窗口放回来 =====
+PASS  再次把窗口收进托盘
+PASS  TrayHider 常驻进程已被强杀（模拟崩溃）
+PASS  此刻窗口仍是隐藏的（崩溃本来就会这样）
+PASS  崩溃前留下了 hidden.state 记录
+PASS  重新启动 TrayHider 后自动把遗留窗口放了出来
+PASS  遗留记录已清除
+
+===== 阶段 8：退出时恢复所有窗口 =====
+PASS  --quit 之后常驻进程已退出
+PASS  --quit 之前隐藏的窗口被恢复
+
+===== 清理 =====
+剩余 Target 进程   : 0
+剩余 TrayHider 进程: 0
+
+===== trayhider.log 全文 =====
+[2026-09-23 13:36:42] ===== TrayHider 启动：数据目录 H:\ds-road\tray-hider\tests\data，规则 0 条 =====
+[2026-09-23 13:36:45] 收进托盘: [命令行] TrayHiderTestTarget (PID 18828, WindowsForms10.Window.8.app.0.34f5582_r6_ad1)
+[2026-09-23 13:36:48] 恢复全部窗口: 1 个
+[2026-09-23 13:36:54] 启动并收进托盘: H:\ds-road\tray-hider\tests\Target.exe (PID 24880)
+[2026-09-23 13:36:54] 收进托盘: [启动：Target.exe] TrayHiderLaunchTest (PID 24880, WindowsForms10.Window.8.app.0.34f5582_r6_ad1)
+[2026-09-23 13:36:59] 恢复全部窗口: 1 个
+[2026-09-23 13:37:03] 收进托盘: [前台窗口] TrayHiderTestTarget (PID 18828, WindowsForms10.Window.8.app.0.34f5582_r6_ad1)
+[2026-09-23 13:37:06] 恢复全部窗口: 1 个
+[2026-09-23 13:37:09] 收进托盘: [命令行] TrayHiderTestTarget (PID 18828, WindowsForms10.Window.8.app.0.34f5582_r6_ad1)
+[2026-09-23 13:37:14] 恢复了 1 个上次遗留的隐藏窗口
+[2026-09-23 13:37:14] ===== TrayHider 启动：数据目录 H:\ds-road\tray-hider\tests\data，规则 0 条 =====
+[2026-09-23 13:37:19] 收进托盘: [命令行] TrayHiderTestTarget (PID 18828, WindowsForms10.Window.8.app.0.34f5582_r6_ad1)
+[2026-09-23 13:37:22] 退出 TrayHider，恢复 1 个窗口
+[2026-09-23 13:37:22] 恢复全部窗口: 1 个
+
