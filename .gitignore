@@ -1,0 +1,13 @@
+# 程序运行时生成的数据目录（便携模式）
+data/
+
+# 测试运行产物
+tests/data*/
+tests/dbg/
+tests/Target.exe
+tests/report.txt
+tests/ui-report.txt
+tests/list*.txt
+
+# 日志
+*.log
